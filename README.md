@@ -15,7 +15,7 @@ This vagrant image will kick start your development in a self contained ubuntu 1
 	* This will download the VM for you
 * $ ```git clone https://github.com/davisrixi/vagrant_java.git```
 	* clone this repository
-* Otherwise, **if librarian-puppet is not installed**, clone the puppet modules
+* Clone the puppet modules
 	* $ ```cd vagrant_java```
 	* $ ```git submodule init```
   	* $ ```git submodule update```
