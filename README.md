@@ -1,37 +1,27 @@
-# Java/JEE development environment
+# Java/Mysql development environment
 
-This vagrant image will kick start your development in a self contained ubuntu precise32 box with all the neccessities installed. The developers just need to configure their eclipse to the shared tomcat filesystem and it's "hakuna matata" all over!
-Will add more instructions with a sample project in the next few days.
+This vagrant image will kick start your development in a self contained ubuntu 14.04 box with all the packages installed. 
 
 ## Pre-requisites
-Ensure you have the following tools installed:
 * virtualbox - https://www.virtualbox.org/
 * vagrant - http://www.vagrantup.com/
-* URL to current apache-tomcat-7.x.x.tar.gz (Ex http://apache.mirrors.pair.com/tomcat/tomcat-7/v7.0.50/bin/apache-tomcat-7.0.52.tar.gz)
-	* Update the `$tomcat_url` definition in `manifests/default.pp` if the url is out of date.
-* librarian-puppet - https://github.com/rodjek/librarian-puppet
-	* puppet installation is optional, the modules have been added as gitsubmodules and pushed to the repo. It's necessary only if you think the modules are outdated
+* URL to current apache-tomcat-7.x.x.tar.gz (Ex http://artfiles.org/apache.org/tomcat/tomcat-7/v7.0.57/bin/apache-tomcat-7.0.57.tar.gz"
+)
+* If the url is out of date, update the `$tomcat_url` definition in `manifests/default.pp` with the current apache-tomcat.
 
 ## Vagrant Setup
-###Do the following:
-* $ ```vagrant box add precise32 http://files.vagrantup.com/precise32.box```
+###Follow these steps:
+* $ ```vagrant box add trusty64 http://files.vagrantup.com/trusty64.box```
 	* This will download the VM for you
-* $ ```git clone https://github.com/seshendra/vagrant-ubuntu-tomcat7.git```
-	* clone this repoistory (it's your working vagrant location)
-* **If librarian-puppet is installed**, grab the puppet modules:
-	* $ ```cd vagrant-ubuntu-tomcat7/manifests```
-	* $ ```librarian-puppet install```
-	* $ ```cd ..```
-
+* $ ```git clone https://github.com/davisrixi/vagrant_java.git```
+	* clone this repository
 * Otherwise, **if librarian-puppet is not installed**, clone the puppet modules
-	* $ ```cd vagrant-ubuntu-tomcat7```
+	* $ ```cd vagrant_java```
 	* $ ```git submodule init```
   	* $ ```git submodule update```
 
 * $ ```vagrant up```
-	* brings up the VM with tomcat and java installed.
-	* This can take anywhere between 20-30 minutes, so issue the command and go have some coffee or attend a meeting or watch a video while vagrant does it's job.
-	* If you are in a VPN, ensure *ubuntu.com and *apache.com are open for downloads in your organization.
+	* brings up the VM with mysql, tomcat and java installed.
 * $ ```vagrant ssh```
 	* Login to your instance.
 
@@ -42,10 +32,3 @@ Ensure you have the following tools installed:
 	*  http://localhost:4880/
 * JMX support is enabled on the server: Vagrant is setup to map port 1099 of the VM to port 1099 on your machine, allowing for monitoring and remote deployment.
 * Tomcat is started in debug mode: Vagrant is setup to map port 8000 of the VM to port 4800 on your machine, allowing for debugging from your IDE.
-
-## Package as a box for customizing in your projects
-* After box is configured and provisioned, you can package and use this as your base box to speed up your subsequent reloads
-* ```vagrant package```
-* ```mv package.box precise32-maven-tomcat7.box```
-* ```vagrant box add precise32-maven-tomcat7 precise32-maven-tomcat7.box```
-* Use ```precise32-maven-tomcat7``` as the name of the box in your VagrantFile ```config.vm.box = "precise32-maven-tomcat7"```
